@@ -1,7 +1,5 @@
 version: '2.3'
-
 services:
-
   node:
     build:
       context: .
@@ -12,9 +10,9 @@ services:
     # which has trouble seeing file changes, so add -L to use legacy polling
     # https://github.com/remy/nodemon#application-isnt-restarting
     #command: ../node_modules/.bin/nodemon --debug=0.0.0.0:5858
-    command: ../node_modules/.bin/nodemon --inspect=0.0.0.0:9229 ./bin/www
+    command: ../node_modules/.bin/nodemon -L --inspect=0.0.0.0:9229 ./bin/www
     ports:
-      - "80:3000"
+      - "8000:3000"
       - "9229:9229"
       - "9230:9230"
     volumes:
@@ -44,7 +42,6 @@ services:
         condition: service_healthy
     healthcheck:
       disable: true
-
   mongo:
     image: mongo
     ports:
@@ -59,6 +56,5 @@ services:
       start_period: 10s
       timeout: 4s
       retries: 3
-
 volumes:
   notused:

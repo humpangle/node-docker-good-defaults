@@ -1,6 +1,6 @@
 # if you're doing anything beyond your local machine, please pin this to a specific version at https://hub.docker.com/_/node/
 # FROM node:8-alpine also works here for a smaller image
-FROM node:10-slim
+FROM node:12.16-slim
 
 # set our node environment, either development or production
 # defaults to production, compose overrides this to development on build and run
@@ -22,7 +22,7 @@ RUN mkdir /opt/node_app && chown node:node /opt/node_app
 WORKDIR /opt/node_app
 # the official node image provides an unprivileged user as a security best practice
 # but we have to manually enable it. We put it here so npm installs dependencies as the same
-# user who runs the app. 
+# user who runs the app.
 # https://github.com/nodejs/docker-node/blob/master/docs/BestPractices.md#non-root-user
 USER node
 COPY package.json package-lock.json* ./
@@ -38,7 +38,6 @@ COPY . .
 
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
-
 
 # if you want to use npm start instead, then use `docker run --init in production`
 # so that signals are passed properly. Note the code in index.js is needed to catch Docker signals

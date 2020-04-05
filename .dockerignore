@@ -4,3 +4,6 @@
 *Dockerfile*
 *docker-compose*
 node_modules
+.git/
+.vscode/
+tags
