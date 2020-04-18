@@ -14,7 +14,8 @@ EXPOSE $PORT 9229 9230
 
 # you'll likely want the latest npm, regardless of node version, for speed and fixes
 # but pin this version for the best stability
-RUN npm i npm@latest -g
+# RUN npm i npm@latest -g
+RUN npm i npm@6.14.4 -g
 
 # install dependencies first, in a different location for easier app bind mounting for local development
 # due to default /opt permissions we have to create the dir with root and change perms
@@ -27,6 +28,7 @@ WORKDIR /opt/node_app
 USER node
 COPY package.json package-lock.json* ./
 RUN npm install --no-optional && npm cache clean --force
+# add /opt/node_app/node_modules/.bin to PATH
 ENV PATH /opt/node_app/node_modules/.bin:$PATH
 
 # check every 30s to ensure this service returns HTTP 200
